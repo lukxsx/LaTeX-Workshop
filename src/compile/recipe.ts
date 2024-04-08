@@ -21,6 +21,14 @@ function setDockerImage() {
     process.env['LATEXWORKSHOP_DOCKER_LATEX'] = dockerImageName
 }
 
+setDockerCommand()
+lw.onConfigChange('docker.command', setDockerCommand)
+function setDockerCommand() {
+    const dockerCommandName: string = vscode.workspace.getConfiguration('latex-workshop').get('docker.command', '')
+    logger.log(`Set $LATEXWORKSHOP_DOCKER_COMMAND: ${JSON.stringify(dockerCommandName)}`)
+    process.env['LATEXWORKSHOP_DOCKER_COMMAND'] = dockerCommandName
+}
+
 /**
  * Build LaTeX project using the recipe system. Creates Tools containing the
  * tool info and adds them to the queue. Initiates a buildLoop if there is no
